@@ -1,24 +1,35 @@
 <?php
 
 class Utilisateurs {
-    protected $id_utilisateur;
+    
     protected $pseudo;
     protected $password;
+
+    public function getPseudo($pseudo) {
+        return $this->pseudo;
+    }
+
+    public function setPseudo($pseudo) {
+        $this->pseudo = $_POST["pseudo"];
+    }
+
+    public function getPassword($password) {
+        return $this->password;
+    }
+
+    public function setPassword($password) {
+        $this->password = $_POST["password"];
+    }
 }
 
-$utilisateur = "";
-$json = "";
-foreach($utilisateur as &$perso) {
-    $perso = ["pseudo" => $perso[0], "password" => $perso[1]];
-} 
+$utilisateur1 = new Utilisateurs("", "");
 
 
-$json = fopen("utilisateurs.json", "w");
-fwrite($json, json_encode(["utilisateurs" => $utilisateurs]));
+
+$json = fopen("utilisateurs.json", "a++");
+fwrite($json, json_encode($_POST));
 fclose($json);
 
-$pseudo = $_POST['pseudo'];
-$password = $_POST['password'];
 
 ?>
 
