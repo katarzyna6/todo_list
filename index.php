@@ -47,17 +47,27 @@ fclose($json);
     
     <h1>HELLO !</h1>
     <hr>
-
-<div id="login">
-    <div class="titre">
-        <h2>Création du compte</h2>
-</div>
-
+        <h2>Inscrivez-vous</h2>
+<div>
     <form action="index.php" method="POST">
 
-        <label for="name">Pseudo: <br><input type="text" name="login"/></label><br><br>
+        <label for="name">Nom: <br><input type="text" name="nom"/></label><br>
+        <label for="name2">Prénom: <br><input type="text" name="prenom"/></label><br>
+        <label for="email">E-mail : <br><input type="text" name="email"/></label><br>
+        <label for="pseudo">Pseudo: <br><input type="text" name="pseudo"/></label><br>
         <label for="password">Mot de passe: <br><input type="password" name="password"/></label><br><br>
         <input type="submit" value="Créer un compte"/>
+
+    </form>
+</div>
+
+<h2>Connectez-vous</h2>
+<div>
+    <form action="index.php" method="POST">
+
+        <label for="name">Pseudo:<br> <input type="text" name="login"/></label><br>
+        <label for="password">Mot de passe:<br><input type="password" name="password"/></label><br><br>
+        <input type="submit" value="Connectez-vous"/>
 
     </form>
 </div>
