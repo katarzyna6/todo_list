@@ -55,6 +55,7 @@ fclose($json);
         <label for="name2">Prénom: <br><input type="text" name="prenom"/></label><br>
         <label for="email">E-mail : <br><input type="text" name="email"/></label><br>
         <label for="pseudo">Pseudo: <br><input type="text" name="pseudo"/></label><br>
+        <label for="password">Répétez votre mot de passe: <br><input type="password" name="password"/></label><br>
         <label for="password">Mot de passe: <br><input type="password" name="password"/></label><br><br>
         <input type="submit" value="Créer un compte"/>
 
