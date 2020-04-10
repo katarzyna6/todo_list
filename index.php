@@ -1,19 +1,19 @@
 <?php
 
-/*$page = isset($_GET["page"])? $_GET["page"] : "home";
+$page = isset($_GET["page"])? $_GET["page"] : "home";
 
     switch ($page) {
         case "home":
-            $include = "index.php";
+            $include = "";
             break;
         case "login":
-            $include = "login.php.php";
+            $include = "";
             break;
         case "registration":
-            $include = "registration.php";
+            insert_user();
             break;
         default : $include = "index.php";
-    }*/
+    }
 
 class Utilisateurs {
     
@@ -80,23 +80,28 @@ fclose($json);
 //password
 session_start();
 
+function insert_user() {
+
+
 $password1 = $_POST['password1'];
 $password2 = $_POST['password2'];
 		
 		if ((strlen($password1)<3) || (strlen($password1)>20))
 		{
 			$all_ok=false;
-			$_SESSION['e_password']="Your password must be between 3 and 20 characters long!";
+			$_SESSION['e_password']="<span style='color:red'>Your password must be between 3 and 20 characters long!</span>";
 		}
 		
 		if ($password1!=$password2)
 		{
 			$all_ok=false;
-			$_SESSION['e_password']="Two passwords do not match";
+			$_SESSION['e_password']="<span style='color:red'>Two passwords do not match</span>";
 		}	
 
         $password_hash = password_hash($password1, PASSWORD_DEFAULT);
+    }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -112,13 +117,13 @@ $password2 = $_POST['password2'];
 
     <div class = "form1">
     <h2>Inscrivez-vous</h2>
-        <form action="index.php" method="POST">
+        <form action="index.php?page=registration" method="POST">
 
-            <label for="name">Nom : <br><input type="text" name="nom"/></label><br>
-            <label for="name2">Prénom : <br><input type="text" name="prenom"/></label><br>
-            <label for="email">E-mail : <br><input type="text" name="email"/></label><br>
-            <label for="pseudo">Pseudo : <br><input type="text" name="pseudo"/></label><br>
-            <label for="password">Mot de passe : <br><input type="password" name="password" value="<?php
+            <label for="name"><input type="text" placeholder="Nom" name="nom"/></label><br>
+            <label for="name2"><input type="text" placeholder="Prénom" name="prenom"/></label><br>
+            <label for="email"><input type="text" placeholder="E-mail" name="email"/></label><br>
+            <label for="pseudo"><input type="text" placeholder="Pseudo" name="pseudo"/></label><br>
+            <label for="password"><input type="password" placeholder="Mot de passe" name="password" value="<?php
              if(isset($_SESSION['fr_password1']))
              {
                  echo $_SESSION['fr_password1'];
@@ -131,7 +136,7 @@ $password2 = $_POST['password2'];
                 unset($_SESSION['e_password']);
             } 
         ?>
-            <label for="password2">Répétez votre mot de passe : <br> <input type="password" value="<?php
+            <label for="password2"><input type="password" placeholder="Répétez le mot de passe" value="<?php
             if(isset($_SESSION['fr_password2']))
             {
                 echo $_SESSION['fr_password2'];
@@ -149,8 +154,8 @@ $password2 = $_POST['password2'];
     <h2>Connectez-vous</h2>
         <form action="index.php" method="POST">
 
-            <label for="name">Pseudo :<br> <input type="text" name="login"/></label><br>
-            <label for="password">Mot de passe :<br><input type="password" name="password"/></label><br><br>
+            <label for="name"><input type="text" placeholder="Pseudo" name="login"/></label><br>
+            <label for="password"><input type="password" placeholder="Mot de passe" name="password"/></label><br><br>
             <input type="submit" value="Connectez-vous"/>
 
         </form>

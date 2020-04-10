@@ -1,5 +1,6 @@
 body {
     background-image: url(img/pool_table_@2X.png);
+    font-family: Helvetica, sans-serif;
 }
 
 .form1, .form2 {
@@ -9,6 +10,7 @@ body {
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 8px;
     -webkit-box-shadow: 17px 17px 21px -5px rgb(18, 20, 22);
     -moz-box-shadow: 17px 17px 21px -5px rgb(45, 50, 53);
     box-shadow: 17px 17px 21px -5px rgb(30, 31, 32);
@@ -26,10 +28,20 @@ input[type=text],
 input[type=password] {
     background-color: #efefef;
     color: #666;
-    border : 2px solid rgb(25, 204, 55);
+    border : 2px solid rgb(20, 148, 42);
     border-radius: 5px;
     font-size: 20px;
     padding: 10px;
+    margin: 10px;
+    outline: none;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+    -webkit-box-shadow: 0px 0px 10px 2px rgb(41, 83, 6);
+    -moz-box-shadow: 0px 0px 10px 2px rgb(14, 129, 29);
+    box-shadow: 0px 0px 10px 2px rgb(14, 85, 35);
+    color: #428c42;
 }
 
 input[type=submit] {
@@ -42,4 +54,15 @@ input[type=submit] {
     border-radius: 5px;
     cursor: pointer;
     letter-spacing: 2px;
+    outline: none;
+}
+
+input[type=submit]:focus {
+    -webkit-box-shadow: 0px 0px 10px 2px rgb(41, 83, 6);
+    -moz-box-shadow: 0px 0px 10px 2px rgb(14, 129, 29);
+    box-shadow: 0px 0px 10px 2px rgb(14, 85, 35);
+}
+
+input[type=submit]:hover {
+    background-color: rgb(27, 196, 63);
 }

@@ -1,2 +1,2 @@
-{"utilisateurs":{"nom":"ROGOWSKA","prenom":"KATARZYNA","email":"katharina@gm.com","pseudo":"kath","password":"qwerty"},
-{"nom":"adam","prenom":"dupont","email":"adam@gmail.com","pseudo":"adam1","password":"azerty","password2":"azerty"}{"nom":"durand","prenom":"pierre","email":"pierre@pp.fr","pseudo":"pierre123","password":"az","password2":"az"}{"nom":"Smith ","prenom":"Jim","email":"jim@o2.fr","pseudo":"jsmith","password":"azerty","password2":"azerty"}
+{"utilisateurs":{"nom":"ROG","prenom":"KATARZYNA","email":"katharina@gm.com","pseudo":"kath","password":"qwerty"},
+{"nom":"adam","prenom":"dupont","email":"adam@gmail.com","pseudo":"adam1","password":"azerty","password2":"azerty"},{"nom":"durand","prenom":"pierre","email":"pierre@pp.fr","pseudo":"pierre123","password":"az","password2":"az"},{"nom":"ROGo","prenom":"KATARZYNA","email":"katarina.r@ho.fr","pseudo":"k","password":"azerty","password2":"azerty"}
