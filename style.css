@@ -1,0 +1,45 @@
+body {
+    background-image: url(img/pool_table_@2X.png);
+}
+
+.form1, .form2 {
+    background-color: rgb(147, 202, 152);
+    width: 400px;
+    padding: 50px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-shadow: 17px 17px 21px -5px rgb(18, 20, 22);
+    -moz-box-shadow: 17px 17px 21px -5px rgb(45, 50, 53);
+    box-shadow: 17px 17px 21px -5px rgb(30, 31, 32);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+input[type=text],
+input[type=password] {
+    background-color: #efefef;
+    color: #666;
+    border : 2px solid rgb(25, 204, 55);
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+}
+
+input[type=submit] {
+    width: 300px;
+    background-color: rgb(24, 173, 57);
+    font-size: 20px;
+    padding: 15px 10px;
+    margin-top: 10px;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
