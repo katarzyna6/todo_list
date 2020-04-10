@@ -2,9 +2,36 @@
 
 class Utilisateurs {
     
+    protected $nom;
+    protected $prenom;
+    protected $email;
     protected $pseudo;
     protected $password;
 
+    public function getNom($nom) {
+        return $this->nom;
+    }
+
+    public function setNom($nom) {
+        $this->nom = $_POST["nom"];
+    }
+
+    public function getPrenom($prenom) {
+        return $this->prenom;
+    }
+
+    public function setPrenom($prenom) {
+        $this->prenom = $_POST["prenom"];
+    }
+
+    public function getEmail($email) {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $_POST["email"];
+    }
+    
     public function getPseudo($pseudo) {
         return $this->pseudo;
     }
@@ -55,8 +82,8 @@ fclose($json);
         <label for="name2">Prénom: <br><input type="text" name="prenom"/></label><br>
         <label for="email">E-mail : <br><input type="text" name="email"/></label><br>
         <label for="pseudo">Pseudo: <br><input type="text" name="pseudo"/></label><br>
-        <label for="password">Répétez votre mot de passe: <br><input type="password" name="password"/></label><br>
         <label for="password">Mot de passe: <br><input type="password" name="password"/></label><br><br>
+        <label for="password2">Répétez votre mot de passe: <br><input type="password2" name="password2"/></label><br>
         <input type="submit" value="Créer un compte"/>
 
     </form>
