@@ -1,5 +1,6 @@
 body {
     background-image: url(img/pool_table_@2X.png);
+    /* Background pattern from Toptal Subtle Patterns */
     font-family: Helvetica, sans-serif;
 }
 
@@ -7,17 +8,34 @@ body {
     background-color: rgb(147, 202, 152);
     width: 400px;
     padding: 50px;
-    margin-top: 100px;
+    margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 80px;
     border-radius: 8px;
     -webkit-box-shadow: 17px 17px 21px -5px rgb(18, 20, 22);
     -moz-box-shadow: 17px 17px 21px -5px rgb(45, 50, 53);
     box-shadow: 17px 17px 21px -5px rgb(30, 31, 32);
 }
 
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
+}
+
+h3 > a:link {
+    text-align: center;
+    text-decoration: none;
+    color: green;
+}
+
+a:visited {
+    text-align: center;
+    text-decoration: none;
+    color: rgb(15, 51, 15);
+}
+
+a:hover {
+    color: rgb(12, 172, 12);
 }
 
 form {
