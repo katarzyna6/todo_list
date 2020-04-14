@@ -1,11 +1,11 @@
 <?php
 
-setcookie('color', 'blue', time() + 182 * 24 * 60 * 60, '/');
+setcookie('pseudo', 'adam1', time() + 182 * 24 * 60 * 60, '/');
 var_dump($_COOKIE);
-$myColor = $_COOKIE['color'];
+$myPseudo = $_COOKIE['pseudo'];
 
-if (isset($_COOKIE['color'])){
-	$myColor = $_COOKIE['color'];
+if (isset($_COOKIE['pseudo'])){
+	$myPseudo = $_COOKIE['pseudo'];
 }
 
 
@@ -46,13 +46,16 @@ function insert_user() {
 
     $password_hash = password_hash($password1, PASSWORD_DEFAULT);
 
+    require "utilisateurs.php";
     $utilisateur1 = new Utilisateurs("", "");
+    
 
     $json = fopen("utilisateurs.json", "a++");
     fwrite($json, json_encode($_POST));
     fclose($json);
 
     setcookie('pseudo', $_POST['pseudo'], time() + 182 * 24 * 60 * 60, '/');
+   
 }
 
     
