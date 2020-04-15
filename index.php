@@ -1,5 +1,7 @@
 <?php
 
+require "models/Utilisateur.php";
+
 setcookie('pseudo', 'adam1', time() + 182 * 24 * 60 * 60, '/');
 var_dump($_COOKIE);
 $myPseudo = $_COOKIE['pseudo'];
@@ -9,58 +11,43 @@ if (isset($_COOKIE['pseudo'])){
 }
 
 
-$page = isset($_GET["page"])? $_GET["page"] : "home";
+$route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
 
-    switch ($page) {
-        case "home":
-            $include = "";
-            break;
-        case "login":
-            $include = "";
-            break;
-        case "registration":
-            insert_user();
-            break;
-        default : $include = "index.php";
-    }
-
-
-session_start();
-
-function insert_user() {
-
-    $password1 = $_POST['password1'];
-    $password2 = $_POST['password2'];
-		
-	if ((strlen($password1)<3) || (strlen($password1)>20))
-		{
-		$all_ok=false;
-		$_SESSION['e_password']="<span style='color:red'>Your password must be between 3 and 20 characters long!</span>";
-	}
-		
-	if ($password1!=$password2)
-	{
-		$all_ok=false;
-		$_SESSION['e_password']="<span style='color:red'>Two passwords do not match</span>";
-	}	
-
-    $password_hash = password_hash($password1, PASSWORD_DEFAULT);
-
-    require "utilisateurs.php";
-    $utilisateur1 = new Utilisateurs("", "");
-    
-
-    $json = fopen("utilisateurs.json", "a++");
-    fwrite($json, json_encode($_POST));
-    fclose($json);
-
-    setcookie('pseudo', $_POST['pseudo'], time() + 182 * 24 * 60 * 60, '/');
-   
+    switch ($route) {
+    case "home": $include = showHome();
+    break;
+    case "insert_user" : insertUser();
+    break;
+    default : $include = showHome();  
 }
 
+function showHome() {
+    return "home.html";
+}
+
+function insertUser() {
+
+    if(!empty($_POST["nom"]) && !empty($_POST["prenom"]) && !empty($_POST["email"]) && !empty($_POST["pseudo"]) && $_POST["password1"] === $_POST["password2"]) {
+
+        $user = new Utilisateur();
+        $user->setNom($_POST["nom"]);
+        $user->setPrenom($_POST["prenom"]);
+        $user->setEmail($_POST["email"]);
+        $user->setPseudo($_POST["pseudo"]);
+        $user->setPassword1(password_hash($_POST["password1"], PASSWORD_DEFAULT));
+
+        $user->saveUser();
+
+    }
+    
+
+    header("Location:index.php");
+
+
+    setcookie('pseudo', $_POST['pseudo'], time() + 182 * 24 * 60 * 60, '/');   
+}
     
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -74,7 +61,9 @@ function insert_user() {
 
 <body>
 
-    <div class = "form2">
+    <?php require "views/$include"; ?>
+
+    <!-- <div class = "form2">
     <h2>Connectez-vous</h2>
     
         <form action="index.php" method="POST">
@@ -85,7 +74,7 @@ function insert_user() {
             <h3><a href="registration.php">Creer un compte</a><h3>
 
         </form>
-    </div>
+    </div> -->
 
 </body>
 </html>

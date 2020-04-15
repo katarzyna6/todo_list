@@ -1,5 +1,5 @@
 <?php
-class Taches {
+class Tache {
 
     protected $id_tache;
     protected $description;
