@@ -1,5 +1,6 @@
 <?php
 session_start();
+var_dump($_SESSION);
 
 require "models/Utilisateur.php";
 
@@ -17,15 +18,26 @@ $route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
     switch ($route) {
     case "home": $include = showHome();
     break;
+    case "membre": $include = showMembre();
+    break;
     case "insert_user" : insertUser();
     break;
     case "connect_user" : connectUser();
+    break;
+    case "deconnect" : deconnectUser();
     break;
     default : $include = showHome();  
 }
 
 function showHome() {
+    if(isset($_SESSION["utilisateur"])) {
+        header("Location:index.php?route=membre");
+    }
     return "home.html";
+}
+
+function showMembre() {
+    return "membre.php";
 }
 
 function insertUser() {
@@ -47,6 +59,29 @@ function insertUser() {
 
     setcookie('pseudo', $_POST['pseudo'], time() + 182 * 24 * 60 * 60, '/');   
 }
+
+function connectUser() {
+
+    if(!empty($_POST["pseudo"]) && !empty($_POST["password1"])) {
+
+        $user = new Utilisateur();
+        $user->setPseudo($_POST["pseudo"]);
+        $new = $user->verifyUser()?? false;
+        //var_dump($new);
+
+        if($new) {
+            if(password_verify($_POST["password1"], $new->password1)) {
+                $_SESSION["utilisateur"] = $new;
+            }
+        }
+    } 
+        header("Location:index.php");
+}
+
+function deconnectUser() {
+    unset($_SESSION["utilisateur"]);
+    header("Location:index.php");
+}
     
 ?>
 
@@ -64,18 +99,6 @@ function insertUser() {
 
     <?php require "views/$include"; ?>
 
-    <div class = "form2">
-    <h2>Connectez-vous</h2>
-    
-        <form action="index.php" method="POST">
-            
-            <label for="pseudo"><input type="text" placeholder="Pseudo" name="pseudo"/></label>
-            <label for="password"><input type="password" placeholder="Mot de passe" name="password"/></label>
-            <input type="submit" value="Connectez-vous"/>
-            <h3><a href="registration.php">Creer un compte</a><h3>
-
-        </form>
-    </div>
 
 </body>
 </html>

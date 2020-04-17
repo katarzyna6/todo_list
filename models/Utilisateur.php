@@ -78,6 +78,12 @@ class Utilisateur {
 
     function verifyUser() {
         
+        $tab = json_decode(file_get_contents("datas/users.json"));
+        foreach($tab as $user) {
+            if($this->pseudo == $user->pseudo) {
+                return $user;
+            }
+        }
     }
 }
 
