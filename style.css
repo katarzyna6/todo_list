@@ -38,17 +38,17 @@ h1 {
 h3 > a:link {
     text-align: center;
     text-decoration: none;
-    color: green;
+    color: rgb(15, 54, 15);
 }
 
 a:visited {
     text-align: center;
     text-decoration: none;
-    color: rgb(15, 51, 15);
+    color: rgb(7, 31, 7);
 }
 
 a:hover {
-    color: rgb(18, 114, 18);
+    color: #0a6905;
 }
 
 form {
@@ -75,7 +75,7 @@ input[type=password]:focus {
     color: #428c42;
 }
 
-input[type=submit] {
+input[type=submit], button {
    
     display: block;
     margin: auto;
@@ -102,6 +102,10 @@ input[type=submit] {
     -moz-box-shadow: 0 8px 0 #063c03;
     box-shadow: 0 8px 0 #063c03;
     text-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+button > a {
+    text-decoration: none;
 }
     
 input[type=submit]:hover {

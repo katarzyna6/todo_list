@@ -1,3 +1,7 @@
-<h1>Mon espace</h1>
+<div class="espace">
 
-<a href="index.php?route=deconnect">Me déconnecter</a>
+    <h1>Mon espace</h1>
+
+    <button><a href="index.php?route=deconnect">Me déconnecter</a></button>
+
+</div>

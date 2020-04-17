@@ -6,7 +6,7 @@ require "models/Utilisateur.php";
 
 setcookie('pseudo', 'adam1', time() + 182 * 24 * 60 * 60, '/');
 //var_dump($_COOKIE);
-$myPseudo = $_COOKIE['pseudo'];
+
 
 if (isset($_COOKIE['pseudo'])){
 	$myPseudo = $_COOKIE['pseudo'];
@@ -62,15 +62,15 @@ function insertUser() {
 
 function connectUser() {
 
-    if(!empty($_POST["pseudo"]) && !empty($_POST["password1"])) {
+    if(!empty($_POST["pseudo"]) && !empty($_POST["password"])) {
 
         $user = new Utilisateur();
         $user->setPseudo($_POST["pseudo"]);
         $new = $user->verifyUser()?? false;
-        //var_dump($new);
+        var_dump($new);
 
         if($new) {
-            if(password_verify($_POST["password1"], $new->password1)) {
+            if(password_verify($_POST["password"], $new->password1)) {
                 $_SESSION["utilisateur"] = $new;
             }
         }
