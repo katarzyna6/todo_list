@@ -1,9 +1,10 @@
 <?php
+session_start();
 
 require "models/Utilisateur.php";
 
 setcookie('pseudo', 'adam1', time() + 182 * 24 * 60 * 60, '/');
-var_dump($_COOKIE);
+//var_dump($_COOKIE);
 $myPseudo = $_COOKIE['pseudo'];
 
 if (isset($_COOKIE['pseudo'])){
@@ -17,6 +18,8 @@ $route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
     case "home": $include = showHome();
     break;
     case "insert_user" : insertUser();
+    break;
+    case "connect_user" : connectUser();
     break;
     default : $include = showHome();  
 }
@@ -40,9 +43,7 @@ function insertUser() {
 
     }
     
-
     header("Location:index.php");
-
 
     setcookie('pseudo', $_POST['pseudo'], time() + 182 * 24 * 60 * 60, '/');   
 }
@@ -63,7 +64,7 @@ function insertUser() {
 
     <?php require "views/$include"; ?>
 
-    <!-- <div class = "form2">
+    <div class = "form2">
     <h2>Connectez-vous</h2>
     
         <form action="index.php" method="POST">
@@ -74,7 +75,7 @@ function insertUser() {
             <h3><a href="registration.php">Creer un compte</a><h3>
 
         </form>
-    </div> -->
+    </div>
 
 </body>
 </html>

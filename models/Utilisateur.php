@@ -75,6 +75,10 @@ class Utilisateur {
             file_put_contents("datas/users.json", $users_json);
         }
     }
+
+    function verifyUser() {
+        
+    }
 }
 
 ?>
