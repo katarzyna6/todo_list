@@ -2,7 +2,13 @@
 session_start();
 var_dump($_SESSION);
 
-require "models/Utilisateur.php";
+//require "models/Utilisateur.php";
+
+spl_autoload_register(function ($class) {
+    if(file_exists("models/$class.php")) {
+        require_once "models/$class.php";
+    }
+});
 
 setcookie('pseudo', 'adam1', time() + 182 * 24 * 60 * 60, '/');
 //var_dump($_COOKIE);
@@ -25,6 +31,8 @@ $route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
     case "connect_user" : connectUser();
     break;
     case "deconnect" : deconnectUser();
+    break;
+    case "insert_tache" : insertTache();
     break;
     default : $include = showHome();  
 }
@@ -81,6 +89,20 @@ function connectUser() {
 function deconnectUser() {
     unset($_SESSION["utilisateur"]);
     header("Location:index.php");
+}
+
+function insertTache() {
+
+    if(!empty($_POST["description"]) && !empty($_POST["date_limite"]) {
+
+        $tache = new Tache();
+        $tache->setDescription($_POST["description"]);
+        $tache->setDateLimite($_POST["date_limite"]);
+
+        $tache->saveTache();
+    }
+    
+    header("Location:membre.php");  
 }
     
 ?>
