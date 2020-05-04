@@ -8,6 +8,16 @@ class Utilisateur {
     private $email;
     private $pseudo;
     private $password1;
+    private $pdo;
+
+    function __construct($id_utilisateur = null) {
+        $this->pdo = new PDO (<todolist>,<katarzyna>,<testy>);
+        $this->id_utilisateur = $id_utilisateur;
+    }
+
+    function setIdUtilisateur ($id_utilisateur) {
+        $this->idUtilisateur = $id_utilisateur
+    }
 
     public function getNom() {
         return $this->nom;
