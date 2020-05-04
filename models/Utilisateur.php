@@ -11,7 +11,7 @@ class Utilisateur {
     private $pdo;
 
     function __construct($id_utilisateur = null) {
-        $this->pdo = new PDO (<todolist>,<katarzyna>,<testy>);
+        $this->pdo = new PDO (<todolist>,<root>,<"">);
         $this->id_utilisateur = $id_utilisateur;
     }
 
