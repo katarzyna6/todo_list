@@ -4,7 +4,7 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
-.form1, .form2, .form3 {
+.form1, .form2, .form3, .espace {
     background-color: rgb(147, 202, 152, 0.6);
     width: 400px;
     padding: 50px;
@@ -104,13 +104,13 @@ input[type=submit], button {
     text-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
 }
 
-button > a {
+/*button > a {
     text-decoration: none;
     color: rgba(20, 18, 18, 0.8);
     font-size: large;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
-}
+}*/
     
 input[type=submit]:hover, button:hover {
     background: #11610d;

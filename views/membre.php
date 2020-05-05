@@ -2,8 +2,6 @@
 
     <h1>Mon espace</h1>
 
-    <button><a href="index.php?route=deconnect">Me déconnecter</a></button>
-
 </div>
 
 <html>
@@ -18,6 +16,7 @@
                 <label for="date_limite"><input type="text" placeholder="Date limite" name="date_limite"/></label>
                 <input type="submit" value="Ajouter"/>
                 <h3><a href="index.php">Retour</a><h3>
+                <h3><a href="index.php?route=deconnect">Me déconnecter</a></h3>
     
             </form>
     </div>

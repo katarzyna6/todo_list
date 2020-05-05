@@ -63,7 +63,7 @@ function insertUser() {
         $user->setPrenom($_POST["prenom"]);
         $user->setEmail($_POST["email"]);
         $user->setPseudo($_POST["pseudo"]);
-        $user->setPassword1(password_hash($_POST["password"], PASSWORD_DEFAULT));
+        $user->setPassword(password_hash($_POST["password"], PASSWORD_DEFAULT));
 
         $user->saveUser();
 
