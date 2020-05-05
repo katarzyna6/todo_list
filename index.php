@@ -1,8 +1,9 @@
 <?php
+
+require_once "conf/global.php";
+
 session_start();
 var_dump($_SESSION);
-
-//require "models/Utilisateur.php";
 
 spl_autoload_register(function ($class) {
     if(file_exists("models/$class.php")) {
@@ -37,6 +38,15 @@ $route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
     default : $include = showHome();  
 }
 
+function showMembre() {
+
+    // Visualiser temporairement les données d'un utilisateur
+    $user = new Utilisateur();
+    $user->selectAll();
+
+    return "membre.php";
+}
+
 function showHome() {
     if(isset($_SESSION["utilisateur"])) {
         header("Location:index.php?route=membre");
@@ -44,20 +54,16 @@ function showHome() {
     return "home.html";
 }
 
-function showMembre() {
-    return "membre.php";
-}
-
 function insertUser() {
 
-    if(!empty($_POST["nom"]) && !empty($_POST["prenom"]) && !empty($_POST["email"]) && !empty($_POST["pseudo"]) && $_POST["password1"] === $_POST["password2"]) {
+    if(!empty($_POST["nom"]) && !empty($_POST["prenom"]) && !empty($_POST["email"]) && !empty($_POST["pseudo"]) && $_POST["password"] === $_POST["password2"]) {
 
         $user = new Utilisateur();
         $user->setNom($_POST["nom"]);
         $user->setPrenom($_POST["prenom"]);
         $user->setEmail($_POST["email"]);
         $user->setPseudo($_POST["pseudo"]);
-        $user->setPassword1(password_hash($_POST["password1"], PASSWORD_DEFAULT));
+        $user->setPassword1(password_hash($_POST["password"], PASSWORD_DEFAULT));
 
         $user->saveUser();
 
@@ -78,7 +84,7 @@ function connectUser() {
         var_dump($new);
 
         if($new) {
-            if(password_verify($_POST["password"], $new->password1)) {
+            if(password_verify($_POST["password"], $new->password)) {
                 $_SESSION["utilisateur"] = $new;
             }
         }
@@ -93,7 +99,7 @@ function deconnectUser() {
 
 function insertTache() {
 
-    if(!empty($_POST["description"]) && !empty($_POST["date_limite"]) {
+    if(!empty($_POST["description"]) && !empty($_POST["date_limite"])) {
 
         $tache = new Tache();
         $tache->setDescription($_POST["description"]);

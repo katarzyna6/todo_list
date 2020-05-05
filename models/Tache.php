@@ -1,10 +1,10 @@
 <?php
-class Tache {
+class Tache extends DbConnect {
 
     protected $id_tache;
     protected $description;
     protected $date_limite;
-    protected $pseudo;
+    protected $id_utilisateur;
 
     public function getIdTache($id_tache) {
         return $this->id_tache;
@@ -28,15 +28,7 @@ class Tache {
 
     public function setDateLimite($date_limite) {
         $this->date_limite = $_POST["date_limite"];
-    }
-
-    public function getPseudo($pseudo) {
-        return $this->pseudo);
-    }
-
-    public function setPseudo($pseudo) {
-        $this->pseudo = $_POST["pseudo"];
-    }   
+    }  
 
     function saveTache() {
 

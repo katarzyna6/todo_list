@@ -1,22 +1,41 @@
 <?php
 
-class Utilisateur {
+class Utilisateur extends DbConnect {
     
     private $id_utilisateur;
     private $nom;
     private $prenom;
     private $email;
     private $pseudo;
-    private $password1;
-    private $pdo;
+    private $password;
 
     function __construct($id_utilisateur = null) {
-        $this->pdo = new PDO (<todolist>,<root>,<"">);
-        $this->id_utilisateur = $id_utilisateur;
+        parent::__construct($id_utilisateur);
+    }
+
+    function insert(){
+    }
+    
+    function update(){
+    }
+
+    function delete(){
+    }
+        
+    function select(){
+    }
+
+    function selectAll() {
+        $query = "SELECT * FROM Utilisateur;";
+        $result = $this->pdo->prepare($query);
+        $result->execute();
+        $datas = $result->fetchAll();
+        $tab = [];
+        var_dump($datas);
     }
 
     function setIdUtilisateur ($id_utilisateur) {
-        $this->idUtilisateur = $id_utilisateur
+        $this->idUtilisateur = $id_utilisateur;
     }
 
     public function getNom() {
@@ -51,12 +70,12 @@ class Utilisateur {
         $this->pseudo = $pseudo;
     }
 
-    public function getPassword1() {
-        return $this->password1;
+    public function getPassword() {
+        return $this->password;
     }
 
-    public function setPassword1(string $password1) {
-        $this->password1 = $password1;
+    public function setPassword(string $password) {
+        $this->password = $password;
     }
 
     function saveUser() {
@@ -76,7 +95,7 @@ class Utilisateur {
             "prenom" => $this->prenom,
             "email" => $this->email,
             "pseudo" => $this->pseudo,
-            "password1" => $this->password1
+            "password" => $this->password
         ];
 
         if($unique) {
