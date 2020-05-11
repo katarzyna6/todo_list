@@ -9,7 +9,7 @@ spl_autoload_register(function ($class) {
     if(file_exists("models/$class.php")) {
         require_once "models/$class.php";
     }
-});
+}); //Enregistre une fonction en tant qu'implémentation de __autoload()
 
 setcookie('pseudo', 'adam1', time() + 182 * 24 * 60 * 60, '/');
 //var_dump($_COOKIE);
@@ -21,6 +21,7 @@ if (isset($_COOKIE['pseudo'])){
 
 
 $route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
+//Le router analyse la requête utilisateur et en fonction de celle-ci choisi l'action à effectuer
 
     switch ($route) {
     case "home": $include = showHome();

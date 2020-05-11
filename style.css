@@ -4,7 +4,7 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
-.form1, .form2, .form3, .espace {
+.form1, .form2, .form3 {
     background-color: rgb(147, 202, 152, 0.6);
     width: 400px;
     padding: 50px;

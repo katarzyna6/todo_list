@@ -14,6 +14,19 @@ class Utilisateur extends DbConnect {
     }
 
     function insert(){
+        $query = "INSERT INTO Utilisateur ('nom', 'prenom', 'email', 'pseudo', 'password')
+            VALUES(:nom, :prenom, :email, :pseudo, :password)";
+        
+        $result = $this->pdo->prepare($query);
+        $result = bindValue(':nom', $this->nom, PDO::PARAM_STR);
+        $result = bindValue(':prenom', $this->prenom, PDO::PARAM_STR);
+        $result = bindValue(':email', $this->email, PDO::PARAM_STR);
+        $result = bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        $result = bindValue(':password', $this->password, PDO::PARAM_STR);
+
+        $this->id = $this->pdo->lastInsertId();
+        return $this;
+        
     }
     
     function update(){
@@ -32,7 +45,7 @@ class Utilisateur extends DbConnect {
         $datas = $result->fetchAll();
         $tab = [];
         var_dump($datas);
-    }
+    }//La méthode selectAll() (correspondant à la propriété read de la méthode CRUD) va nous permettre de récupérer toutes les données enregistrées dans une table.
 
     function setIdUtilisateur ($id_utilisateur) {
         $this->idUtilisateur = $id_utilisateur;
