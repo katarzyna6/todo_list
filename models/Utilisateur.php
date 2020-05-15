@@ -13,10 +13,11 @@ class Utilisateur extends DbConnect {
         parent::__construct($id_utilisateur);
     }
 
+    //Ajouter un nouvel utilisateur
     function insert(){
         $query = "INSERT INTO Utilisateur ('nom', 'prenom', 'email', 'pseudo', 'password')
             VALUES(:nom, :prenom, :email, :pseudo, :password)";
-        
+    //Injection SQL
         $result = $this->pdo->prepare($query);
         $result = bindValue(':nom', $this->nom, PDO::PARAM_STR);
         $result = bindValue(':prenom', $this->prenom, PDO::PARAM_STR);
@@ -42,10 +43,11 @@ class Utilisateur extends DbConnect {
         $query = "SELECT * FROM Utilisateur;";
         $result = $this->pdo->prepare($query);
         $result->execute();
-        $datas = $result->fetchAll();
+        $datas = $result->fetchAll(); //fetch->récupérer les resultats dans un tableau
         $tab = [];
         var_dump($datas);
-    }//La méthode selectAll() (correspondant à la propriété read de la méthode CRUD) va nous permettre de récupérer toutes les données enregistrées dans une table.
+    }//La méthode selectAll() (correspondant à la propriété read de la méthode CRUD) 
+    //va nous permettre de récupérer toutes les données enregistrées dans une table.
 
     function setIdUtilisateur ($id_utilisateur) {
         $this->idUtilisateur = $id_utilisateur;
@@ -91,6 +93,12 @@ class Utilisateur extends DbConnect {
         $this->password = $password;
     }
 
+    public function selectByPseudo() {
+        
+    }
+
+    /* ------Utilisation JSON-----------
+    
     function saveUser() {
 
         $tab = json_decode(file_get_contents("datas/users.json"));
@@ -127,6 +135,6 @@ class Utilisateur extends DbConnect {
             }
         }
     }
-}
+}*/
 
 ?>
