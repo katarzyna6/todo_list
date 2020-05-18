@@ -32,6 +32,18 @@ var_dump($jour);
 $jour = $today->modify("last monday");
 var_dump($jour);
 
+$premier_lundi = $now->modify("first monday of");
+
+$premier_mois_suivant = $premier->modify("+ 1 month");
+
+$dernier = $premier->modify("+ 1 month - 1 day");
+
+$premier_annee_suivante = $now->modify("first day of January + 1 year");
+
+$premier_lundi_precedent = ((int) $premier_lundi->format("d") === 01)? $premier_lundi : $premier_lundi->modify("last monday");
+
+
+
 
 
  

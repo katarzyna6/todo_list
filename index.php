@@ -34,19 +34,21 @@ $route = isset($_REQUEST["route"])? $_REQUEST["route"] : "home";
 
 
     switch ($route) {
-    case "home": $include = showHome();
+    case "home": $view = showHome();//Afficher la page d'accueil avec mon formulaire 
     break;
-    case "membre": $include = showMembre();
+    case "membre": $view = showMembre();//Afficher l'espace membre pour un utilisateur connecté 
     break;
-    case "insert_user" : insertUser();
+    case "insert_user" : insertUser();// Déclencher une action-> enregistrer un nouvel utilisateur puis de rappeler ma page d'accueil
     break;
-    case "connect_user" : connectUser();
+    case "connect_user" : connectUser();// Déclencher une action-> connecter un utilisateur puis de rediriger vers l'espace membre si OK
     break;
     case "deconnect" : deconnectUser();
     break;
     case "insert_tache" : insertTache();
     break;
-    default : $include = showHome();  
+    case "show_calendar" : $view = showCalendar();
+    break;
+    default : $view = showHome();//Afficher la page d'accueil avec mon formulaire  
 }
 
 // 3. FONCTIONS DE CONTROLE
@@ -60,16 +62,38 @@ function showMembre() {
     // Visualiser temporairement les données d'un utilisateur
     $user = new Utilisateur();
     $user->selectAll();
+    $datas = [];
 
-    return "membre.php";
+    return ["template" => "membre.php", "datas" => $datas];
 }
 
 function showHome() {
     if(isset($_SESSION["utilisateur"])) {
         header("Location:index.php?route=membre");
     }
-    return "home.html";
+    
+
+    $datas = [];
+	// il suffit désormais de mettre dans $datas les données à transmettre à notre vue
+    // par exemple $datas["annee"] = 2020;
+	return ["template" => "home.html", "datas" => $datas];
 }
+
+function showCalendar() {
+
+    $aujd = new DateTimeImmutable("now", new DateTimeZone("europe/Paris"));
+    $annee_courante = $aujd->format("Y");
+    $mois_courant = $aujd->format("m");
+    $month = new Month($mois_courant, $annee_courante);
+
+    $datas = [
+        "mois" => $month->getMonthName(),
+        "annee" => $month->getYear()
+    ];
+    return ["template" => "calendrier.php", "datas" => $datas];
+}
+
+    
 
 // Fonctionnalité(s) redirigées :
 
@@ -169,7 +193,7 @@ Affichage du système de templates HTML-->
 
 <body>
 
-    <?php require "views/$include"; ?>
+    <?php require "views/{$view['template']}"; ?>
 
 
 </body>
