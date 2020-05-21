@@ -171,6 +171,7 @@ function insertTache() {
         $tache->setIdUtilisateur($_SESSION['utilisateur']['id_utilisateur']);
 
         $tache->insert();
+        var_dump($tache); 
     }
     
     header("Location:membre.php");  

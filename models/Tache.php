@@ -10,7 +10,7 @@ class Tache extends DbConnect {
     protected $id_tache;
     protected $description;
     protected $date_limite;
-    protected $idUtilisateur;
+    protected $id_utilisateur;
 
     // Le construct permet d'établir une structure de notre tache
     function __construct($id=null) {
@@ -79,10 +79,11 @@ class Tache extends DbConnect {
    // Permet d'inserer une tache dans la base de donnée.
     public function insert(){
     var_dump($this);
-    $query = "INSERT INTO tache (description, date_limite) VALUES (:description, :date_limite)";
+    $query = "INSERT INTO tache (description, date_limite, id_utilisateur) VALUES (:description, :date_limite, :id_utilisateur)";
     $result = $this->pdo->prepare($query);
     $result->bindValue(':description', $this->description, PDO::PARAM_STR);
     $result->bindValue(':date_limite', $this->date_limite, PDO::PARAM_INT);
+    $result->bindValue(':id_utilisateur', $this->idUtilisateur, PDO::PARAM_INT);
     $result->execute();
 
         $this->id = $this->pdo->lastInsertId();
