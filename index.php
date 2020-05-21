@@ -98,15 +98,15 @@ function showCalendar() {
 // Fonctionnalité(s) redirigées :
 
 function insertUser() {
-
+    
     if(!empty($_POST["nom"]) && !empty($_POST["prenom"]) && !empty($_POST["email"]) && !empty($_POST["pseudo"]) &&
     $_POST["password"] === $_POST["password2"]) {
-
-        if (preg_match("#^[a-zA-Z-àâäéèêëïîôöùûüçàâäéèêëïîôöùûüçÀÂÄÉÈËÏÔÖÙÛÜŸÇæœÆŒ]+$#", $_POST["nom"])
+      
+        /*if (preg_match("#^[a-zA-Z-àâäéèêëïîôöùûüçàâäéèêëïîôöùûüçÀÂÄÉÈËÏÔÖÙÛÜŸÇæœÆŒ]+$#", $_POST["nom"])
             && preg_match("#^[a-zA-Z-àâäéèêëïîôöùûüçàâäéèêëïîôöùûüçÀÂÄÉÈËÏÔÖÙÛÜŸÇæœÆŒ]+$#", $_POST["prenom"])
             && preg_match("#^(a-z0-9)+(a-z0-9)+@(a-z0-9)+(a-z0-9)$#", $_POST["email"])
             && preg_match("# \^[a-zA-Z0-9_]{3,16}$#", $_POST["pseudo"])
-            && preg_match("#^[a-zA-Z0-9]+$#", $_POST["password"]))  {
+            && preg_match("#^[a-zA-Z0-9]+$#", $_POST["password"]))  {*/
 
                 $user = new Utilisateur();
                 $user->setNom($_POST["nom"]);
@@ -121,13 +121,13 @@ function insertUser() {
                 $_SESSION['pseudo']=$pseudo;
                 $_SESSION['password']=$password;
 
-        }else {
+        /*}else {
                 echo "Erreur.<br>";
         
-        }
+        }*/
     }
     setcookie('pseudo', $_POST['pseudo'], time() + 182 * 24 * 60 * 60, '/');
-    header("Location:index.php");
+    //header("Location:index.php");
 }  
 
 function connectUser() {
@@ -137,24 +137,22 @@ function connectUser() {
         $user = new Utilisateur();
         $user->setPseudo($_POST["pseudo"]);
         $user->setPassword($_POST["password"]);
-        $verif = $user-SelectByPseudo();
-
-        if($verif) {
-            header('Location:index.php?route=membre');
+        $verif = $user->selectByPseudo();
+var_dump($verif);
+        if($verif) { 
+                if(password_verify($_POST["password"], $verif["password"])) {
+                    $_SESSION["utilisateur"] = $verif;
+                    header('Location:index.php?route=membre'); 
+                   
+                } else { 
+                    header('Location:index.php?route=home');
+                } 
+            
         } else {
             header('Location:index.php?route=home');
         }
-            
-        /*$new = $user->verifyUser()?? false;
-        var_dump($new);
-
-        if($new) {
-            if(password_verify($_POST["password"], $new->password)) {
-                $_SESSION["utilisateur"] = $new;
-            }
-        }*/
     } 
-        header("Location:index.php");
+    
 }
 
 function deconnectUser() {
@@ -170,7 +168,9 @@ function insertTache() {
         $tache->setDescription($_POST["description"]);
         $tache->setDateLimite($_POST["date_limite"]);
 
-        $tache->saveTache();
+        $tache->setIdUtilisateur($_SESSION['utilisateur']['id_utilisateur']);
+
+        $tache->insert();
     }
     
     header("Location:membre.php");  

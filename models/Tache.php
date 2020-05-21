@@ -1,6 +1,6 @@
 <?php
     // On requiert le fichier utilisateurs.php pour permettre d'ajouter les informations utilisateurs à nos taches
-    require 'Utilisateur.php';
+   
 
     // La classe instancie une nouvelle tache. Elle est liée à DbConnect qui permet de lier la base de donnée à la classe. 
     // Elle requiert les méthodes afin d'agrémenter la base
@@ -10,7 +10,7 @@ class Tache extends DbConnect {
     protected $id_tache;
     protected $description;
     protected $date_limite;
-    protected $id_utilisateur;
+    protected $idUtilisateur;
 
     // Le construct permet d'établir une structure de notre tache
     function __construct($id=null) {
@@ -31,7 +31,7 @@ class Tache extends DbConnect {
     }
 
     public function setIdTache($id_tache) {
-        $this->id_tache = $_POST["tache"];
+        $this->id_tache = $id_tache;
     }
 
     public function getDescription($description) {
@@ -39,15 +39,15 @@ class Tache extends DbConnect {
     }
 
     public function setDescription($description) {
-        $this->description = $_POST["description"];
+        $this->description = $description;
     }
 
     public function getDateLimite($date_limite) {
-        return $this->date_limite);
+        return $this->date_limite;
     }
 
     public function setDateLimite($date_limite) {
-        $this->date_limite = $_POST["date_limite"];
+        $this->date_limite = $date_limite;
     }  
 
     // Permet d'enregistrer une tache en encodant le fichier json. 
@@ -76,32 +76,32 @@ class Tache extends DbConnect {
         }
     }
 
-    
-
    // Permet d'inserer une tache dans la base de donnée.
-   public function insert(){
+    public function insert(){
     var_dump($this);
-    $query1 = "INSERT INTO tache (DESCRIPTION,DATE_LIMITE, ID_UTILISATEUR) VALUES ('$this->description','$this->date', $this->idUtilisateur)";
-    $result1 = $this->pdo->prepare($query1);
-    $result1->execute();
-    $id2 = $this->pdo->lastInsertId();
-    var_dump($this);
-    return $this;
+    $query = "INSERT INTO tache (description, date_limite) VALUES (:description, :date_limite)";
+    $result = $this->pdo->prepare($query);
+    $result->bindValue(':description', $this->description, PDO::PARAM_STR);
+    $result->bindValue(':date_limite', $this->date_limite, PDO::PARAM_INT);
+    $result->execute();
 
-}
+        $this->id = $this->pdo->lastInsertId();
+        return $this;
+    }
+    
 
     // Permet de selectionner toutes les taches dans la base de donnée. 
     public function selectAll(){
     $query ="SELECT * FROM tache;";
     $result = $this->pdo->prepare($query);
     $result->execute();
-    $datas= $result->fetchAll();
+    $datas= $result->fetchAll(); //recupérer les données
 
     $tab=[];
 
     foreach($datas as $data) {
         $current = new Tache();
-        $current->setId($data['ID_TACHE']);
+        $current->setId($data['id_tache']);
         array_push($tab, $current);
         }
         return $tab;
@@ -110,18 +110,20 @@ class Tache extends DbConnect {
 
     // Permet de selectionner une tache dans la base de donnée. 
     public function select(){
-        $query2 = "SELECT * FROM tache WHERE ID_TACHE = $this->idTache;";
-        $result2 = $this->pdo->prepare($query2);
-        $result2->execute();
-        $data2 = $result2->fetch();
+        $query = "SELECT * FROM tache WHERE id_tache = :id_tache";
+        $result = $this->pdo->prepare($query);
+        $result->bindValue('id_tache', $this->idTache, PDO::PARAM_INT);
+        $result->execute();
+        $data = $result->fetch();
         //appel aux setters de l'objet
         return $this;
-}
+    }
 
     // Permet de modifier une tache dans la base de donnée. 
     public function update(){
-        $query ="UPDATE * FROM tasks WHERE ID_TASK = $this->idTache;";
+        $query ="UPDATE * FROM tache WHERE id_tache = :id_tache";
         $result = $this->pdo->prepare($query);
+        $result->bindValue('id_tache', $this->idTache, PDO::PARAM_INT);
         $result->execute();
         $data = $result->fetch();
                 //appel aux setters de l'objet
@@ -130,8 +132,9 @@ class Tache extends DbConnect {
 
     // Permet de supprimer une tache dans la base de donnée. 
     public function delete(){
-        $query ="DELETE * FROM tache WHERE ID_TACHE = $this->idTache;";
+        $query ="DELETE * FROM tache WHERE id_tache = :id_tache";
         $result = $this->pdo->prepare($query);
+        $result->bindValue('id_tache', $this->idTache, PDO::PARAM_INT);
         $result->execute();
         $data = $result->fetch();
         //appel aux setters de l'objet

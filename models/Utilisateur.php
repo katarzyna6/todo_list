@@ -19,15 +19,16 @@ class Utilisateur extends DbConnect {
 
     // Permet d'inserer un utilisateur dans la base de donnée.
     function insert(){
-        $query = "INSERT INTO Utilisateur ('nom', 'prenom', 'email', 'pseudo', 'password')
+        var_dump($this);
+        $query = "INSERT INTO utilisateur (nom, prenom, email, pseudo, password)
             VALUES(:nom, :prenom, :email, :pseudo, :password)";
 
         $result = $this->pdo->prepare($query);
-        $result = bindValue(':nom', $this->nom, PDO::PARAM_STR);
-        $result = bindValue(':prenom', $this->prenom, PDO::PARAM_STR);
-        $result = bindValue(':email', $this->email, PDO::PARAM_STR);
-        $result = bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
-        $result = bindValue(':password', $this->password, PDO::PARAM_STR);
+        $result->bindValue(':nom', $this->nom, PDO::PARAM_STR);
+        $result->bindValue(':prenom', $this->prenom, PDO::PARAM_STR);
+        $result->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $result->bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        $result->bindValue(':password', $this->password, PDO::PARAM_STR);
         $result->execute();
 
         $this->id = $this->pdo->lastInsertId();
@@ -37,7 +38,8 @@ class Utilisateur extends DbConnect {
     
     // Permet de modifier un utilisateur dans la base de donnée. 
     function update(){
-        $query ="UPDATE * FROM utilisateur WHERE pseudo ='$this->pseudo',";
+        $query ="UPDATE * FROM utilisateur WHERE id_utilisateur = :id_utilisateur";
+        $result->bindValue('id_utilisateur', $this->idUtilisateur, PDO::PARAM_INT);
         $result = $this->pdo->prepare($query);
         $result->execute();
         $data = $result->fetch();
@@ -47,7 +49,8 @@ class Utilisateur extends DbConnect {
 
     // Permet de supprimer un utilisateur dans la base de donnée. 
     function delete(){
-        $query ="DELETE * FROM utilisateur WHERE pseudo ='$this->pseudo',";
+        $query ="DELETE * FROM utilisateur WHERE id_utilisateur = :id_utilisateur";
+        $result->bindValue('id_utilisateur', $this->idUtilisateur, PDO::PARAM_INT);
         $result = $this->pdo->prepare($query);
         $result->execute();
         $data = $result->fetch();
@@ -57,27 +60,28 @@ class Utilisateur extends DbConnect {
        
     // Permet de selectionner un utilisateurs dans la base de donnée.
     function select(){
-        $query2 = "SELECT * FROM utilisateur WHERE id_utilisateur = $this->idUtilisateur;";
-        $result2 = $this->pdo->prepare($query2);
-        $result2->execute();
-        $data2 = $result2->fetch();
+        $query = "SELECT * FROM utilisateur WHERE id_utilisateur = :id_utilisateur";
+        $result->bindValue('id_utilisateur', $this->idUtilisateur, PDO::PARAM_INT);
+        $result = $this->pdo->prepare($query);
+        $result->execute();
+        $data = $result->fetch();
             //appel aux setters de l'objet
         return $this;
     }
 
     public function selectByPseudo() {
-        $query2 = "SELECT * FROM utilisateur WHERE pseudo = '$this->pseudo';";
-        $result2 = $this->pdo->prepare($query2);
-        $result2->execute();
-        $data2 = $result2->fetch();
+        $query = "SELECT * FROM utilisateur WHERE pseudo = :pseudo";
+        $result = $this->pdo->prepare($query);
+        $result->bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        $result->execute();
+        $data = $result->fetch();
                 //appel aux setters de l'objet
-         return $data2;
+         return $data;
         }
-        
-    }
 
 
     // Permet de selectionner tous les utilisateurs dans la base de donnée. 
+    //La méthode selectAll() (correspondant à la propriété read de la méthode CRUD) va nous permettre de récupérer toutes les données enregistrées dans une table.
     function selectAll() {
         $query = "SELECT * FROM Utilisateur;";
         $result = $this->pdo->prepare($query);
@@ -85,12 +89,12 @@ class Utilisateur extends DbConnect {
         $datas = $result->fetchAll(); //fetch->récupérer les resultats dans un tableau
         $tab = [];
         var_dump($datas);
-    }//La méthode selectAll() (correspondant à la propriété read de la méthode CRUD) 
-    //va nous permettre de récupérer toutes les données enregistrées dans une table.
+    }
 
     // La syntaxe get permet de lier une propriété d'un objet à une fonction qui sera appelée lorsqu'on accédera à la propriété.
     function getIdUtilisateur ($id_utilisateur) {
-        $this->idUtilisateur = $id_utilisateur;
+        
+        return $this->idUtilisateur;
     }
 
     // La syntaxe set permet de lier une propriété d'un objet à une fonction qui sera appelée à chaque tentative de modification de cette propriété.
@@ -178,7 +182,7 @@ class Utilisateur extends DbConnect {
                 return $user;
             }
         }
-    }
-}*/
+    }*/
+}
 
 ?>
